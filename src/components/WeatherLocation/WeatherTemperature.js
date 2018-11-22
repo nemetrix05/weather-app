@@ -1,11 +1,20 @@
 import React from 'react';
 import WeatherIcons from 'react-weathericons';
-
+import { 
+    SUNNY,
+    FOG,
+    RAIN,
+    SLEET,
+    THUNDERSTORM
+} from './../../constanst/constants';
 // Usamos una constante, para obtener el icono de acuerdo al clima
 
 const icons = {
-    sunny: 'wi-day-sunny',
-    fog:   'wi-day-fog'
+    [SUNNY]:          'sunny',
+    [FOG]:            'fog',
+    [RAIN]:           'rain',
+    [SLEET]:          'sleet',
+    [THUNDERSTORM]:   'thunderstorm'
 };
 
 const getWeatherIcon = weatherState => {
@@ -14,12 +23,10 @@ const getWeatherIcon = weatherState => {
 
     const icon = icons[weatherState];
 
-    console.log(icon);
-
     // Valido que no venga vacio
 
    if(icon){ 
-        return <WeatherIcons name={`wi ${icon}`} size="2x" /> 
+        return <WeatherIcons name={`wi wi-day-${icon}`} size="2x" /> 
     }else{
         return <WeatherIcons name={'wi wi-solar-eclipse'} size="2x" />   
     }
