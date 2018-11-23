@@ -5,23 +5,25 @@ import { WeatherExtraInfo } from './WeatherExtraInfo';
 // Importo constantes iconos clima
 import { 
     SUNNY,
-    FOG,
+    /*FOG,
     RAIN,
     SLEET,
-    THUNDERSTORM
-} from './../../constanst/constants';
+    THUNDERSTORM */
+} from '../../../constanst/constants';
 
 const WeatherData = () => (
-    <div className='green'>
+    [
         <WeatherTemperature 
-            temperature={25}
+            key='WeatherTemperature'
+            temperature={60}
             weatherState={SUNNY}
-        />
+        />,
         <WeatherExtraInfo 
-            humid={'90'} 
-            wind={'5'} 
+            key='WeatherExtraInfo'
+            humid={100} 
+            wind={'80'} 
         />
-    </div>
+    ]
 );
 
 export {

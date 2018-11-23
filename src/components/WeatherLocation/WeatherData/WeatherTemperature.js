@@ -1,12 +1,14 @@
 import React from 'react';
 import WeatherIcons from 'react-weathericons';
+// importamos las prop types
+import PropTypes from 'prop-types'; 
 import { 
     SUNNY,
     FOG,
     RAIN,
     SLEET,
     THUNDERSTORM
-} from './../../constanst/constants';
+} from '../../../constanst/constants';
 // Usamos una constante, para obtener el icono de acuerdo al clima
 
 const icons = {
@@ -34,12 +36,20 @@ const getWeatherIcon = weatherState => {
 };
 
 const WeatherTemperature = ({temperature, weatherState}) => (
-    <div className='gray'>
-        { getWeatherIcon(weatherState) }
-        <span>{`${temperature} C°`}</span>
-    </div>
+    [
+        <span key='getWeatherIcon'>
+            { getWeatherIcon(weatherState) }
+        </span>,
+        <span key='Temperature'>{`${temperature} C°`}</span>
+    ]
 );
 
+// Validamos la props propTypes siempre en minuscula
+
+WeatherTemperature.propTypes = {
+    temperature:    PropTypes.number.isRequired,
+    weatherState:   PropTypes.string.isRequired
+};
 
 export {
     WeatherTemperature

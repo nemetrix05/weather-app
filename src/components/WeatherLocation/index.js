@@ -7,12 +7,15 @@ import { WeatherData } from './WeatherData';
 // En este caso usaremos una arrow funcion
 
 const WeatherLocation = () => (
-        <div className='red'>
-                <Location 
-                   city={'Colombia'}
-                />
-                <WeatherData />
-        </div>
+       [
+        <Location 
+                city={'Buenos Aires'}
+                key='Location'
+        />,
+        <WeatherData 
+                key='WheatherData'
+        />
+       ]
 );
 
 // Sintaxis arrow funcions devuelve una sola linea/ const nombrefuncion = () => (parentesis)
