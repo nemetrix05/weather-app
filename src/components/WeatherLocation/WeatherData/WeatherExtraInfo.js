@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 // Si queremos solo recibir un valor numnerico y agregarle un texto, usamos el template string que nos permite concatenar variables recibidas por props y añadirle texto string uso : comillas invertidas ${variable} texto.
 const WeatherExtraInfo = ({humid, wind}) => (
     <div className='wheadericon'>
-        <p><strong>Humid:</strong> {`${humid} % H`}</p>
-        <p><strong>Wind:</strong> {`${wind} m/s W`}</p>
+        <p><strong>Humedad:</strong> {`${humid} %`}</p>
+        <p><strong>Vientos:</strong> {`${wind} m/s`}</p>
     </div>
 );
 

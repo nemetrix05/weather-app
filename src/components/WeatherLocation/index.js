@@ -9,6 +9,18 @@ import {
     } from '../../constanst/constants';
 
 
+// Conectamos con el api de clima
+// Definimos las constantes con las variables para conectar con el api key
+
+const location     = 'Bogota,col';
+const api_key      = 'd2b2dbd137f5d1ec2fb1e7f4d25f04b7';
+const url_base_api = 'http://api.openweathermap.org/data/2.5/weather';
+
+// concatenamos todo la consulta en una constante para pasarla al metodo fecth
+
+const api_weather = `${url_base_api}?q=${location}&appid=${api_key}`;
+
+
 // Creamos una constante que guardara los 4 parametros para wheader data
 const data = {
         temperature: 10,
@@ -34,10 +46,44 @@ class WeatherLocation extends Component {
             //this.cambioTitulo = this.cambioTitulo.bind(this);
         }
 
+        // funcion para el icono
+        getIconState = weather_data =>{
+                return SUNNY;
+        }
+
+
+        /*TRANSFORMACION DE DATOS*/
+        getData = weather_data =>{
+           // creamos la desestructuracion para envocarl del json los parametros que necesitamos
+           const { temp, humidity } = weather_data.main;
+           const { speed } = weather_data.wind;
+           const weatherState = this.getIconState(weather_data);
+        
+           // definimos los nuevos datos para actualizar el state
+           const data = {
+                temperature: temp,
+                weatherState,
+                humidity,
+                wind: speed
+           }           
+
+           // IMPORTANTE RETORNAR LA NUEVA DATA
+           return data;
+
+        }
+
         cambioTitulo = () => {
-           this.setState({
-               city: 'Toronto'    
-           })
+            // Se hace el fetch en el momento de envocar alguna funcion o en el ciclo de vida
+            fetch(api_weather).then( (res) => {
+                // Como el servidor nos responde no en formato JSON, entonces debemos convertirla a json y esto crea una nueva promesa
+                return res.json();
+            }).then( (data) =>{
+                const newWeather = this.getData(data);
+                console.log(newWeather);
+                this.setState({
+                    data: newWeather
+                })
+            });
         }
 
         render(){
