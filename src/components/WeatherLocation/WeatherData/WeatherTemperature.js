@@ -28,20 +28,20 @@ const getWeatherIcon = weatherState => {
     // Valido que no venga vacio
 
    if(icon){ 
-        return <WeatherIcons name={`wi wi-day-${icon}`} size="2x" /> 
+        return <WeatherIcons name={`wi wi-day-${icon}`} size="3x" /> 
     }else{
-        return <WeatherIcons name={'wi wi-solar-eclipse'} size="2x" />   
+        return <WeatherIcons name={'wi wi-solar-eclipse'} size="3x" />   
     }
 
 };
 
 const WeatherTemperature = ({temperature, weatherState}) => (
-    [
-        <span key='getWeatherIcon'>
+    <div className='wheadericon'>
+        <span className='geticon'>
             { getWeatherIcon(weatherState) }
-        </span>,
-        <span key='Temperature'>{`${temperature} C°`}</span>
-    ]
+        </span>
+        <span>{`${temperature} C°`}</span>
+    </div>
 );
 
 // Validamos la props propTypes siempre en minuscula
