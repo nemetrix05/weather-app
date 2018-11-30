@@ -8,6 +8,9 @@ import {
         SUNNY
     } from '../../constanst/constants';
 
+// importamos el convertidor
+import convert from 'convert-units';
+
 
 // Conectamos con el api de clima
 // Definimos las constantes con las variables para conectar con el api key
@@ -17,6 +20,9 @@ const api_key      = 'd2b2dbd137f5d1ec2fb1e7f4d25f04b7';
 const url_base_api = 'http://api.openweathermap.org/data/2.5/weather';
 
 // concatenamos todo la consulta en una constante para pasarla al metodo fecth
+// Para que convierta la temperatura, usamos el parametro extra en la documentacion del api &units=metric
+
+// o por medio de un plugin: npm install --save convert-units
 
 const api_weather = `${url_base_api}?q=${location}&appid=${api_key}`;
 
@@ -46,6 +52,14 @@ class WeatherLocation extends Component {
             //this.cambioTitulo = this.cambioTitulo.bind(this);
         }
 
+
+        // se crea una funcion que reciba el valor en grados k y los convierta en c, con le metodo converter
+
+        getTemp = ( gkelvin ) => {
+            return convert(gkelvin).from('K').to('C');
+        }
+
+
         // funcion para el icono
         getIconState = weather_data =>{
                 return SUNNY;
@@ -58,10 +72,13 @@ class WeatherLocation extends Component {
            const { temp, humidity } = weather_data.main;
            const { speed } = weather_data.wind;
            const weatherState = this.getIconState(weather_data);
+           // Se obtiene la temperatura ya convertida
+           const temperature = this.getTemp(temp);
         
            // definimos los nuevos datos para actualizar el state
            const data = {
-                temperature: temp,
+               // cuando la propiedad y el valor son iguales se deja uno, esto se llama value shorthand ES6 specification
+                temperature,
                 weatherState,
                 humidity,
                 wind: speed
@@ -81,8 +98,11 @@ class WeatherLocation extends Component {
                 const newWeather = this.getData(data);
                 console.log(newWeather);
                 this.setState({
+                    city: 'Bogota',
                     data: newWeather
                 })
+            }).catch((error) => {
+                console.log(error);
             });
         }
 
