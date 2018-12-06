@@ -5,10 +5,12 @@ import { WeatherData } from './WeatherData';
 import './weatherlocation.css';
 // Importamos el servicio que transforma los datos
 import transformWeather from '../../services/transformWeather';
-// Importamos LA CONSULTA al API
-import { api_weather } from '../../constanst/api_url'; 
 // Importamos el preload de la libreria material design
 import CircularProgress from '@material-ui/core/CircularProgress';
+// Importamos los proptypes para validar que el valor de las props sean los adecuados
+import { PropTypes } from 'prop-types';
+// Importamos la funcion para obtener el api con la ciudad.
+import getUrlByCity from '../../services/getWeatherCity';
 
 // Si los componentes no tienen funcionalida, SIEMPRE tratar de usar componente puros
 // En este caso usaremos una arrow funcion
@@ -16,9 +18,13 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 class WeatherLocation extends Component {
         
         constructor(props){
-            super(props)
+            super(props);
+
+            // Se usa desestructuring para definir las props del constructor
+            const { city } = props; 
+
             this.state = {
-                city: '',
+                city,
                 data: ''
             };
 
@@ -34,7 +40,6 @@ class WeatherLocation extends Component {
 
         shouldComponentUpdate(nextProps, nextState) {
             const { city } = this.state;
-
             if(city !== nextState.city){
                 return true;
             }else{
@@ -44,15 +49,19 @@ class WeatherLocation extends Component {
         
 
         getWeatherState = () => {
+            // creamos una constante para llamar la funcion del api
+            const api_weather = getUrlByCity(this.state.city);
+            
             // Se hace el fetch en el momento de envocar alguna funcion o en el ciclo de vida
+            
             fetch(api_weather).then( (res) => {
                 // Como el servidor nos responde no en formato JSON, entonces debemos convertirla a json y esto crea una nueva promesa
                 return res.json();
+
             }).then( (data) =>{
                 const newWeather = transformWeather(data);
-                console.log(newWeather);
                 this.setState({
-                    city: 'Bogota',
+                    city: data.name,
                     data: newWeather
                 })
             }).catch( (error) => {
@@ -74,6 +83,12 @@ class WeatherLocation extends Component {
                         </div>
                 );     
         }       
+}
+
+
+// Valido con prop Types
+WeatherLocation.propTypes = {
+    city: PropTypes.string.isRequired
 }
 
 // Sintaxis arrow funcions devuelve una sola linea/ const nombrefuncion = () => (parentesis)

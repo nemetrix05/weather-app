@@ -1,21 +1,22 @@
 h2.Tlocation{
-    background: rgb(253,254,254, 0.1);
-    margin-bottom: 0;
+    background: rgba(253, 254, 254, 0.2);
+    margin:0 0 20px 0;
     color: #ffdd57;
     border-radius: 5px;
     text-shadow: 1px 1px 2px #1a1a1a;
+    padding: 5px;
 }
 .wraplocation{
     background: #292929;
-    padding: 10px;
+    padding: 15px;
 }
 .wheadericon{
     border-radius: 5px;
-    padding: 10px;
+    padding: 17px;
     color: #fff;
-    min-height: 70px;
     background: rgb(253,254,254, 0.1);
     box-shadow: inset 0px 0px 3px #fff;
+    min-height: 48px;
 }
 .wheadericon strong{
     color: #fff;

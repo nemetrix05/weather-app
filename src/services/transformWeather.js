@@ -9,7 +9,8 @@ import convert from 'convert-units';
     // se crea una funcion que reciba el valor en grados k y los convierta en c, con le metodo converter
 
     const getTemp = ( gkelvin ) => {
-        return convert(gkelvin).from('K').to('C');
+        // Usamos Javascript para transformar a dos decimales
+        return Number(convert(gkelvin).from('K').to('C').toFixed(2));
     }
 
 
