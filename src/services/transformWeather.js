@@ -1,7 +1,12 @@
 // Importo constantes iconos clima
 import { 
-    SUNNY
-} from '../constanst/constants';
+    SUN,
+    CLOUD,
+    RAIN,
+    SNOW,
+    THUNDER,
+    DRIZZLE
+} from '../constanst/weathers';
 
 // importamos el convertidor
 import convert from 'convert-units';
@@ -15,9 +20,23 @@ import convert from 'convert-units';
 
 
     // funcion para el icono
-    const getIconState = weather_data =>{
-           // console.log(weather_data);
-            return SUNNY;
+    const getIconState = weather =>{
+            // En esta funcion recibo el valor del ID del icono y hago las validaciones para asignarles el valor correspondiente
+            const { id } = weather;
+
+            if (id < 300) {
+                return THUNDER;
+            } else if (id < 400) {
+                return DRIZZLE;
+            } else if (id < 600) {
+                return RAIN;
+            } else if (id < 700) {
+                return SNOW;
+            } else if (id === 800) {
+                return SUN;
+            } else {
+                return CLOUD;
+            }
     }
 
 
@@ -26,7 +45,7 @@ import convert from 'convert-units';
         // creamos la desestructuracion para envocarl del json los parametros que necesitamos
         const { temp, humidity } = weather_data.main;
         const { speed } = weather_data.wind;
-        const weatherState = getIconState(weather_data);
+        const weatherState = getIconState(weather_data.weather[0]);
         // Se obtiene la temperatura ya convertida
         const temperature = getTemp(temp);
 

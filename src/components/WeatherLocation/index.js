@@ -49,8 +49,11 @@ class WeatherLocation extends Component {
         
 
         getWeatherState = () => {
+
+            const { city } = this.state;
+
             // creamos una constante para llamar la funcion del api
-            const api_weather = getUrlByCity(this.state.city);
+            const api_weather = getUrlByCity(city);
             
             // Se hace el fetch en el momento de envocar alguna funcion o en el ciclo de vida
             
