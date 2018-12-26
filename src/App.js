@@ -3,7 +3,7 @@ import './App.css';
 import LocationList from './components/LocationList';
 
 const cities = [
-  'Bogotá,col',
+  'Rusia,urss',
   'Buenos Aires,ar',
   'Cancún,mex',
   'Rio de Janeiro,bra',

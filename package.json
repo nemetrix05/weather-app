@@ -13,7 +13,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build && clientlib --verbose",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -25,5 +25,8 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "aem-clientlib-generator": "^1.4.1"
+  }
 }
