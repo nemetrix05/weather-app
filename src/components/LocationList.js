@@ -5,11 +5,23 @@ import PropTypes from 'prop-types';
 
 // Se crea una funcion que se encargara de iterar sobre cada uno de los elementos de la array
 
-const transformCity = (cities) => (
-    cities.map( (city) => <WeatherLocation city={city} key={city}/> )
-);
 
-const LocationList = ({ cities }) => {
+const LocationList = ({ cities, onSelectedLocation }) => {
+
+    const handleLocationClick = city =>{
+        console.log('onLocationClick');
+        onSelectedLocation(city);
+    }
+    
+    const transformCity = (cities) => (
+        cities.map( (city) => 
+        (
+            <WeatherLocation 
+                city={city} 
+                key={city}
+                onLocationClick={() => handleLocationClick(city)} /> ))
+    );
+
     return (
         <div>
             {transformCity(cities)}
@@ -20,7 +32,8 @@ const LocationList = ({ cities }) => {
 // El parametro MAP() itera sobre los elementos de una ARRAY esuna caracteristica nueva de ES6
 
 LocationList.propTypes = {
-    cities: PropTypes.array.isRequired
+    cities: PropTypes.array.isRequired,
+    onSelectedLocation: PropTypes.func
 }
 
 export default LocationList;

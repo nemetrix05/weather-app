@@ -73,9 +73,12 @@ class WeatherLocation extends Component {
         }
 
         render(){
+                const { onLocationClick } = this.props;
+
                 const {city, data} = this.state;
+                
                 return(
-                        <div className='wraplocation'>
+                        <div className='wraplocation' onClick={onLocationClick}>
                                 <Location city={city} />
                                 { data ? 
                                     <WeatherData data={data} /> : 
@@ -91,7 +94,8 @@ class WeatherLocation extends Component {
 
 // Valido con prop Types
 WeatherLocation.propTypes = {
-    city: PropTypes.string.isRequired
+    city: PropTypes.string.isRequired,
+    onLocationClick: PropTypes.func
 }
 
 // Sintaxis arrow funcions devuelve una sola linea/ const nombrefuncion = () => (parentesis)

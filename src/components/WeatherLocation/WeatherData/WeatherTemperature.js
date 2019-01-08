@@ -30,9 +30,9 @@ const getWeatherIcon = weatherState => {
     // Valido que no venga vacio
 
    if(icon){ 
-        return <WeatherIcons name={`wi wi-day-${icon}`} size="3x" /> 
+        return <WeatherIcons name={`wi wi-day-${icon}`} size="2x" /> 
     }else{
-        return <WeatherIcons name={'wi wi-solar-eclipse'} size="3x" />   
+        return <WeatherIcons name={'wi wi-solar-eclipse'} size="2x" />   
     }
 
 };
