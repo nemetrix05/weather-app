@@ -1,22 +1,31 @@
 h2.Tlocation{
-    background: rgba(253, 254, 254, 0.2);
-    margin:0 0 20px 0;
+    background: rgba(253, 254, 254, 0.08);
+    margin: 0 0 20px 0;
     color: #ffdd57;
-    border-radius: 5px;
     text-shadow: 1px 1px 2px #1a1a1a;
     padding: 5px;
+    font-weight: 400;
+    box-shadow: inset 0px 0px 13px #cccccc36;
+}
+.sidebar{
+    background: rgb(253,254,254, 0.1);
+    box-shadow: inset 0px 0px 3px #fff;
+    border-radius: 4px;
+    overflow: hidden;
+}
+.wraplocation:first-child{
+    padding: 0 0 15px 0;
 }
 .wraplocation{
-    background: #292929;
-    padding: 15px;
+    padding: 15px 0;
+    text-align: center;
 }
 .wheadericon{
     border-radius: 5px;
-    padding: 17px;
+    padding: 12px;
     color: #fff;
-    background: rgb(253,254,254, 0.1);
-    box-shadow: inset 0px 0px 3px #fff;
-    min-height: 42px;
+    font-size: 15px;
+    border: 1px solid rgba(253, 254, 254, 0.05);
 }
 .wheadericon strong{
     color: #fff;

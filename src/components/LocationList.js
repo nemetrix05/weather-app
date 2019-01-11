@@ -23,7 +23,7 @@ const LocationList = ({ cities, onSelectedLocation }) => {
     );
 
     return (
-        <div>
+        <div className="sidebar">
             {transformCity(cities)}
         </div>
     );

@@ -1,4 +1,10 @@
 body{background: #292929;}
-.App {
-  text-align: center;
+.forecast-main{
+    background: #fff;
+    height: 100%;
+    border-radius: 4px;
+    box-shadow: inset 0px 0px 11px #292929;
+}
+.forecast-main h6{
+    padding: 10px 0;
 }

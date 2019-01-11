@@ -15,7 +15,7 @@ import convert from 'convert-units';
 
     const getTemp = ( gkelvin ) => {
         // Usamos Javascript para transformar a dos decimales
-        return Number(convert(gkelvin).from('K').to('C').toFixed(2));
+        return Number(convert(gkelvin).from('K').to('C').toFixed(0));
     }
 
 
