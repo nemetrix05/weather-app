@@ -19,6 +19,7 @@ h2.Tlocation{
 .wraplocation{
     padding: 15px 0;
     text-align: center;
+    cursor: pointer;
 }
 .wheadericon{
     border-radius: 5px;

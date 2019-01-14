@@ -61,8 +61,9 @@ class App extends Component {
 
   // Manejador de eventos
   handleLocationClick = city =>{
-    var setTitle = city.substring(0, city.indexOf(','))
-    this.setState({city: setTitle});
+    /*var setTitle = city.substring(0, city.indexOf(','))
+    this.setState({city: setTitle}); */
+    this.setState({city}); 
   }
   
   render() {
