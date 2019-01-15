@@ -1,24 +1,16 @@
 import React, { Component } from 'react';
-import PropTypes, { func } from 'prop-types';
+import PropTypes from 'prop-types';
 import { ForecastItem } from './ForecastItem';
 import { api_key, url_base_forecast } from '../constanst/api_url';
 // Importamos el servicio que transformara los datos
 import transformForecast from '../services/transformForecast';
-
-// Creamos una array que va contener los dias de la semana para mostrar en el componente ForecastItem
-const days = [
-    'Lunes',
-    'Martes',
-    'Miercoles',
-    'Jueves',
-    'Viernes'
-]
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 class ForecastExtended extends Component {
 
     // Definimos el state de los datos
-    constructor(props){
-        super(props);
+    constructor(){
+        super();
         this.state = { forecastData: null }
     } 
 
@@ -35,17 +27,20 @@ class ForecastExtended extends Component {
 
     // Creamos la funcion que muestra el preload si no estan los datos
     renderProgress = () => {
-        return "Cargando pronosticos del clima...";
+        return (
+            <LinearProgress color="primary" variant="query" />
+        );
     }
 
     // Usamos el ciclo de vida para cambiar el estado
     componentDidMount(){
         const { city } = this.props;
         this.updateCity(city);
+        // Usar este componente para cargar datos
     }
 
     // Se ejecuta cuando cambien las propiedades o sytate, le pasamos las props que cambian al dar clicl en cada elemento
-    componentWillReceiveProps(nextProps, prevProps){
+    componentWillReceiveProps(nextProps){
         const { city } = this.props;
         // cambio el state  para mostrar la carga
         this.setState({ forecastData: null});
@@ -67,10 +62,8 @@ class ForecastExtended extends Component {
             data => (data.json())
         ).then(
             wheader_data => {
-                console.log(wheader_data);
                 // Se crea una constante que va llamar el servicio de transformacion
                 const forecastData = transformForecast(wheader_data);
-                console.log(forecastData);
                 // Se asigna al set state los datos ya transformados
                 this.setState({ forecastData });
             }
@@ -84,13 +77,15 @@ class ForecastExtended extends Component {
 
     render() {
         // Creamos la constante de ciudad
-        const {city} = this.props;
+        const {city, banner} = this.props;
         // Nueva constante con los datos de item
         const { forecastData } = this.state;
-
+        
         return(
             <div>
-                {city}
+                <div className="banner" style={ { backgroundImage: `url(${banner})` } }>
+                    <h1>{city}</h1>
+                </div>
                 {forecastData ? 
                     this.renderItems(forecastData) :
                     this.renderProgress()
@@ -101,7 +96,8 @@ class ForecastExtended extends Component {
 }
 
 ForecastExtended.propTypes = {
-    city: PropTypes.string.isRequired
+    city: PropTypes.string.isRequired,
+    banner: PropTypes.string.isRequired
 }
 
 export { ForecastExtended }

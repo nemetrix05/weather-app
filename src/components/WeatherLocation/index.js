@@ -74,7 +74,6 @@ class WeatherLocation extends Component {
 
         render(){
                 const { onLocationClick } = this.props;
-
                 const {city, data} = this.state;
                 
                 return(

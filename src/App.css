@@ -3,8 +3,53 @@ body{background: #292929;}
     background: #fff;
     height: 100%;
     border-radius: 4px;
-    box-shadow: inset 0px 0px 11px #292929;
+    box-shadow: inset 0px 0px 11px #666;
 }
 .forecast-main h6{
     padding: 10px 0;
 }
+
+/* Estilos Forecast Item */
+.banner{
+    border-radius: 4px 4px 0 0;
+    width: 100%;
+    position: relative;
+    /* Set a specific height */
+    height: 150px; 
+    /* Create the parallax scrolling effect */
+    background-attachment: scroll;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover; 
+    box-shadow: inset 0px 0px 11px #666;
+}
+
+.banner h1{
+    color: #fff;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    padding: 10px 20px;
+    text-shadow: 1px 1px 2px #666;
+    margin: 0;
+}
+
+.forecastitem h3{
+    color: #292929;
+    border-bottom: 2px solid #ffdd57;
+    display: inline-block;
+    padding: 5px 10px;
+}
+
+.forecastitem .wheadericon{
+    border: 1px solid #f3f3f3;
+    color: #666;
+    margin: 0 5%;
+    text-align: center;
+}
+
+.forecastitem .wheadericon strong{
+    color: #666;
+}
+
+.middle{display: inline-block;vertical-align: middle;}
