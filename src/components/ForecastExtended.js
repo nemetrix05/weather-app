@@ -93,6 +93,7 @@ class ForecastExtended extends Component {
             </div>
         );
     }
+    
 }
 
 ForecastExtended.propTypes = {

@@ -1,63 +1,27 @@
 import React, { Component } from 'react';
+// REDUX -  Con este modulo conectamos redux con react
+import { connect } from 'react-redux';
 import './App.css';
 import LocationList from './components/LocationList';
 import PropTypes from 'prop-types';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
+import TitleApp from './constanst/headerApp';
 // Importamos las constantes para definir la conexion api imagen
 import { api_key_img, url_base_url, url_query } from './constanst/api_url';
 import { getBannerImg } from './services/getBannerImg';
-import moment from 'moment';
 // Importamos el componente ForecastExtended
 import { ForecastExtended } from './components/ForecastExtended';
-import Icon from '@material-ui/core/Icon';
 // Importamos la grilla de material UI design
 import Grid from '@material-ui/core/Grid';
-
+// Importamos las ACCIONES / REDUX
+import { setCity } from './actions';
 
 const cities = [
   'Rio de Janeiro,bra',
-  'Roma,it',
+  'Medellín,col',
   'New York,eeuu',
   'Caracas,ven',
 ];
-
-// Title Structure
-
-function TitleApp (props) {
-
-  const { titulo } = props;
-
-  const fecha = moment().format("DD/MM/YYYY, h:mm a");
-
-  return (
-    <div key="apptitle" style={{ padding: 0, marginBottom: 30 }}>
-      <Grid container spacing={0} alignItems='center' alignContent='center' justify='space-between'>
-          <Grid item md={12}>
-              <AppBar position="sticky" color="primary">
-                <Toolbar>
-                  <Grid container direction="row" alignItems="center">
-                      <Grid item md={6}>
-                          <Typography variant="h6" color="inherit">
-                              <div className="middle">
-                                  <Icon color='inherit' className='material-icons' fontSize="large" style={{marginRight: 10}}>wb_incandescent</Icon>
-                              </div>
-                              <div className="middle">{titulo}</div>
-                          </Typography>
-                      </Grid>
-                      <Grid item md={6}>
-                          <Typography variant="body2" color="inherit" align="right" >{fecha}</Typography>
-                      </Grid>
-                  </Grid>
-                </Toolbar>
-              </AppBar>
-          </Grid>
-      </Grid>
-    </div>
-  )
-}
-
 
 class App extends Component {
 
@@ -79,6 +43,10 @@ class App extends Component {
     this.setState({city: setTitle});
     // envoco la funcion que nos trae la imagen
     this.getUrlImg(city);
+
+    // REDUX - Para llamar una accion en el app, llamamos la funcion store y generamos un metodo DISPATCH, el cual recibe un objeto que tiene el tipo de accion y su nuevo valor, que se actualizara en el store.
+    this.props.setCity(city);
+
   }
   
   // Creamos la clase funcional que hara el fetch al api del servidor
@@ -114,7 +82,7 @@ class App extends Component {
 
     return (
       [
-        <TitleApp key="apptitle" titulo="liveFORECAST"/>,
+        <TitleApp key="apptitle" titulo={"liveFORECAST"}/>,
 
         <div key="appcontent" style={{ padding: 0 }}>
           <Grid container spacing={0} alignContent='center' justify='space-between'>
@@ -151,4 +119,13 @@ TitleApp.propTypes = {
   titulo: PropTypes.string.isRequired
 };
 
-export default App;
+// Para conectar React con redux , en el metodo connect pasamos 2 funciones 1, recibe el dispacher de acciones y la otra a cual componente  le asignara el store
+const mapDispatchPropsActions = dispatch => ({
+  // Esta funcion recibe el nombre de la accion como prop y la envia al store
+  setCity: value => dispatch(setCity(value))
+})
+
+// Connec recibe tambien otra funcion, la cual le pasamos el nombre del componente
+const AppConnected = connect(null, mapDispatchPropsActions)(App);
+
+export default AppConnected;
