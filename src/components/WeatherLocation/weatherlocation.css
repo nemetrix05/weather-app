@@ -1,6 +1,6 @@
 h2.Tlocation{
     background: rgba(253, 254, 254, 0.08);
-    margin: 0 0 20px 0;
+    margin: 0;
     color: #ffdd57;
     text-shadow: 1px 1px 2px #1a1a1a;
     padding: 5px;
@@ -16,19 +16,17 @@ h2.Tlocation{
     position: sticky;
     top: 0;
 }
-.wraplocation:first-child{
-    padding: 0 0 15px 0;
-}
 .wraplocation{
-    padding: 15px 0;
+    padding:0;
     text-align: center;
     cursor: pointer;
 }
 .wheadericon{
     border-radius: 5px;
-    padding: 12px;
+    padding: 10px;
+    margin: 16px 0;
     color: #fff;
-    font-size: 15px;
+    font-size: 13px;
     border: 1px solid rgba(253, 254, 254, 0.05);
 }
 .wheadericon strong{

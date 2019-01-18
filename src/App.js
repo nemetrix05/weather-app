@@ -1,9 +1,5 @@
 import React, { Component } from 'react';
-// REDUX -  Con este modulo conectamos redux con react
-import { connect } from 'react-redux';
 import './App.css';
-import LocationList from './components/LocationList';
-import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 import TitleApp from './constanst/headerApp';
 // Importamos las constantes para definir la conexion api imagen
@@ -13,12 +9,11 @@ import { getBannerImg } from './services/getBannerImg';
 import { ForecastExtended } from './components/ForecastExtended';
 // Importamos la grilla de material UI design
 import Grid from '@material-ui/core/Grid';
-// Importamos las ACCIONES / REDUX
-import { setCity } from './actions';
+import LocationListContainer from './containers/locationListContainer';
 
 const cities = [
   'Rio de Janeiro,bra',
-  'Medellín,col',
+  'Toronto,can',
   'New York,eeuu',
   'Caracas,ven',
 ];
@@ -28,27 +23,11 @@ class App extends Component {
   // Creamos el state para manejar el cambio de ciudad en el forecast items
   constructor(){
       super();
-      this.state = {
-        city: null,
-        banner: ''
-      }
+      this.state = { city: null, banner: '' }
       // Hacemos el bindeo de la funcion para que se pueda usar en contexto this
-      this.handleLocationClick = this.handleLocationClick.bind(this);
       this.getUrlImg = this.getUrlImg.bind(this);
   }
 
-  // Manejador de eventos
-  handleLocationClick = city => {
-    var setTitle = city.substring(0, city.indexOf(','))
-    this.setState({city: setTitle});
-    // envoco la funcion que nos trae la imagen
-    this.getUrlImg(city);
-
-    // REDUX - Para llamar una accion en el app, llamamos la funcion store y generamos un metodo DISPATCH, el cual recibe un objeto que tiene el tipo de accion y su nuevo valor, que se actualizara en el store.
-    this.props.setCity(city);
-
-  }
-  
   // Creamos la clase funcional que hara el fetch al api del servidor
   getUrlImg = city => {
 
@@ -68,15 +47,16 @@ class App extends Component {
       )
   }
 
+  handleImg = city => {
+    var setTitle = city.substring(0, city.indexOf(','))
+    // Cambio el estado de la ciudad
+    this.setState({ city: setTitle });
+    // envoco la funcion que nos trae la imagen
+    this.getUrlImg(setTitle);
+  }
+
 
   render() {
-
-    /* Podemos hacer validaciones sobre datos, usando ternarias o solo validando el valor si no existe
-        {
-          city && 
-          <ForecastExtended city={city} />
-        }
-    */
 
     const { city, banner } = this.state;
 
@@ -84,18 +64,16 @@ class App extends Component {
       [
         <TitleApp key="apptitle" titulo={"liveFORECAST"}/>,
 
-        <div key="appcontent" style={{ padding: 0 }}>
-          <Grid container spacing={0} alignContent='center' justify='space-between'>
+        <div key="appcontent" style={{ padding: 16 }}>
+          <Grid container spacing={32} alignContent='center' justify='center'>
 
-              <Grid item md={1}></Grid>
-
-              <Grid item md={3}>
-                <LocationList 
+              <Grid item lg={3} md={4} sm={5} xs={12}>
+                <LocationListContainer 
                     cities={cities} 
-                    onSelectedLocation={this.handleLocationClick} />
+                    setCityBy={this.handleImg} />
               </Grid>
 
-              <Grid item md={6}>
+              <Grid item lg={6} md={6} sm={7} xs={12}>
                   <div className="forecast-main">
                     {
                       !city ? 
@@ -105,8 +83,6 @@ class App extends Component {
                   </div>
               </Grid>    
 
-              <Grid item md={1}></Grid> 
-
           </Grid>
         </div>
       ]
@@ -115,17 +91,4 @@ class App extends Component {
   }
 }
 
-TitleApp.propTypes = {
-  titulo: PropTypes.string.isRequired
-};
-
-// Para conectar React con redux , en el metodo connect pasamos 2 funciones 1, recibe el dispacher de acciones y la otra a cual componente  le asignara el store
-const mapDispatchPropsActions = dispatch => ({
-  // Esta funcion recibe el nombre de la accion como prop y la envia al store
-  setCity: value => dispatch(setCity(value))
-})
-
-// Connec recibe tambien otra funcion, la cual le pasamos el nombre del componente
-const AppConnected = connect(null, mapDispatchPropsActions)(App);
-
-export default AppConnected;
+export default App;

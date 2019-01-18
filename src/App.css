@@ -53,3 +53,14 @@ body{background: #292929;}
 }
 
 .middle{display: inline-block;vertical-align: middle;}
+
+@media screen and (max-width: 620px){
+    .wheadericon strong{display: block;}
+}
+/*XS*/
+@media screen and (max-width: 599px){
+    .sidebar{
+        height: 250px;
+        overflow-y: scroll;
+    }
+}

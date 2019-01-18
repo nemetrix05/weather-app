@@ -9,13 +9,13 @@ import Grid from '@material-ui/core/Grid';
 // Recibo en la funcion la constante data con los 4 valores, hay que hacerle un destructuring para asignar los valores de data.
 const WeatherData = ({data: {temperature, weatherState, humidity, wind}}) => (
     <Grid container spacing={32} alignItems='center' alignContent='center'>
-        <Grid item xs={6}>
+        <Grid item xs={6} md={6} lg={6} sm={5}>
             <WeatherTemperature 
                 temperature={temperature}
                 weatherState={weatherState}
             />
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={6} md={6} lg={6} sm={7}>
             <WeatherExtraInfo 
                 humid={humidity} 
                 wind={wind} 
