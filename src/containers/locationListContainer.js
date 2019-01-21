@@ -6,17 +6,12 @@ import { connect } from 'react-redux';
 // Importamos las ACCIONES / REDUX
 import { setCity } from '../actions';
 
-
 class LocationListContainer extends Component {
 
     // Manejador de eventos
     handleLocationClick = city => {
         // REDUX - Para llamar una accion en el app, llamamos la funcion store y generamos un metodo DISPATCH, el cual recibe un objeto que tiene el tipo de accion y su nuevo valor, que se actualizara en el store.
         this.props.setCity(city);
-        
-        // Creo una funcion que envia la ciudad a app js
-        const { setCityBy } = this.props;
-        setCityBy(city);
     }    
 
     render(){
@@ -28,6 +23,7 @@ class LocationListContainer extends Component {
             onSelectedLocation={this.handleLocationClick} />
         );
     }
+    
 }
 
 
