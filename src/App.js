@@ -14,7 +14,7 @@ const cities = [
   'Caracas,ven',
 ];
 
-const App = () => {
+function App() {
 
       return (  
         <div>

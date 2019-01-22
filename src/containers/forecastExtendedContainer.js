@@ -30,7 +30,7 @@ class ForecastExtendedContainer extends Component {
                 const bannerData = getBannerImg(img_data);
                 this.setState({ banner: bannerData });
             }
-        )
+        ).catch (err => console.log(err));
     }    
 
     componentDidMount(){
