@@ -16,9 +16,9 @@ const LocationList = ({ cities, onSelectedLocation }) => {
         cities.map( (city) => 
         (
             <WeatherLocation 
-                city={city} 
-                key={city}
-                onLocationClick={() => handleLocationClick(city)} /> ))
+                city={city.name} 
+                key={city.key}
+                onLocationClick={() => handleLocationClick(city.name)} /> ))
     );
 
     return (
