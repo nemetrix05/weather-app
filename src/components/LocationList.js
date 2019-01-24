@@ -13,12 +13,14 @@ const LocationList = ({ cities, onSelectedLocation }) => {
     }
     
     const transformCity = (cities) => (
-        cities.map( (city) => 
-        (
+        cities.map( (city) => (
             <WeatherLocation 
                 city={city.name} 
                 key={city.key}
-                onLocationClick={() => handleLocationClick(city.name)} /> ))
+                onLocationClick={() => handleLocationClick(city.name)} 
+                data={city.data} /> 
+            )
+        )
     );
 
     return (

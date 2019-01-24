@@ -8,8 +8,8 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 // Importamos los proptypes para validar que el valor de las props sean los adecuados
 import { PropTypes } from 'prop-types';
 
-const WeatherLocation = ({ onLocationClick, city, data }) => (
-        
+const WeatherLocation = ({ onLocationClick, city, data }) => ( 
+    
     <div className='wraplocation' onClick={onLocationClick}>
         <Location city={city} />
         { data ? 

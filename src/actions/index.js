@@ -52,17 +52,18 @@ export const setWeather = payload => {
         // con los datos que me llegan por payload, itero sobre los elementos haciendo una consulta al api por cada uno
         payload.forEach(city => {
             // creamos una constante para llamar la funcion del api
-            const api_weather = getUrlByCity(city);
             dispatch(getWeatherCity(city));
+            const api_weather = getUrlByCity(city);           
+
             // Se hace el fetch en el momento de envocar alguna funcion o en el ciclo de vida
-            fetch(api_weather).then( (res) => {
+            fetch(api_weather).then( (data) => {
                 // Como el servidor nos responde no en formato JSON, entonces debemos convertirla a json y esto crea una nueva promesa
-                return res.json();
+                return data.json();
             }).then( (weather_data) =>{
-                const data = transformWeather(weather_data);
-                // Paso la data obtenida a la accion
-                dispatch(setWeatherCity(city, data));
-            }).catch(err => err);
+                const wheather = transformWeather(weather_data);
+                // Paso el wheader obtenida a la accion
+                dispatch(setWeatherCity({city, wheather}));
+            });
         })
     }
 }
