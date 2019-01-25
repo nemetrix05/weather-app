@@ -11,7 +11,7 @@ const LocationList = ({ cities, onSelectedLocation }) => {
     const handleLocationClick = city =>{
         onSelectedLocation(city);
     }
-    
+
     const transformCity = (cities) => (
         cities.map( (city) => (
             <WeatherLocation 

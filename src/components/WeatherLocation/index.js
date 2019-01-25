@@ -9,7 +9,6 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { PropTypes } from 'prop-types';
 
 const WeatherLocation = ({ onLocationClick, city, data }) => ( 
-    
     <div className='wraplocation' onClick={onLocationClick}>
         <Location city={city} />
         { data ? 
@@ -21,7 +20,6 @@ const WeatherLocation = ({ onLocationClick, city, data }) => (
     </div>
        
 );
-
 
 // Valido con prop Types
 WeatherLocation.propTypes = {

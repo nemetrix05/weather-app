@@ -11,7 +11,7 @@ import reducers from '../reducers';
 
 // Creamos el stato inicial por defecto
 const initialState = {
-    city: 'Bogotá,col'
+    city: 'Madrid,es'
 }
 
 // Defino la constante que configura los middlewares

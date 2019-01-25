@@ -23,12 +23,31 @@ const setWeatherCity = payload => ({ type: SET_WEATHER_CITY, payload});
 export const setSelectedCity = payload =>{
     // MIDDEWARE: Son funciones que se ejecutan entre el dispatch de la accion y su nuevo estado. Estas funciones afectan la accion antes o despues de ser procesadas.
 
-    return dispatch => {
+    // Agregamos el segundo parametro getstate para saber el estado actual del app y compararlo con el que viene
+    return (dispatch, getState) => {
         // Aqui hacemos la consulta al api con fetch o axios
         const url_forecast = `${url_base_forecast}?q=${payload}&appid=${api_key}`;  
         // Con dispatch, buscamos la informacion con la ciudad seleccionada
         dispatch(setCity(payload));
-        
+
+
+        // Con esta tecnica optimizamos la carga inicial de la consulta al API
+        // 1. se obtiene el state actual
+        const state = getState();
+
+        //2. Se obtiene la ultima fecha de consulta
+        const date = state.cities[payload] && state.cities[payload].forecastDataDate;
+
+        //3. Fecha nueva consulta
+        const now = new Date();
+    
+        // 4. Se compara que la mofificacion se haya hecho en menos de un minuto
+        // Si el cambio fue en menos de un minuto no lo cambie, cada dos minutos
+        if(date && (now - date) < 2 * 60 * 1000){
+            return;
+        }
+        // y esto no lo hace otra vez
+
         // Se usa el return para que ejecute la consulta
         return fetch(url_forecast).then( 
             // Con este metodo convertimos la respuesta a JSON

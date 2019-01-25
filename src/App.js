@@ -11,7 +11,7 @@ const cities = [
   'Rio de Janeiro,bra',
   'Toronto,can',
   'New York,eeuu',
-  'Caracas,ven',
+  'Lima,per'
 ];
 
 const App = () => {

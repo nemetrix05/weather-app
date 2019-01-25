@@ -12,7 +12,10 @@ export const cities = (state = {}, action) => {
             const { city, forecastData } = action.payload;
             // hacemos la copia del state actual, y generamos el nuevo con: [llaveciudad elegida], datosforecast y wheader
             // al agregar ...state[city], mantenenos el estado anterior de wheater y solo cambia el de forecastdata
-            return {...state, [city]: { ...state[city], forecastData }}
+
+            // con el data date, comparamos la fecha de cambio de los datos para no hacer un nuevo renderizado cada vez que se consulta
+
+            return {...state, [city]: { ...state[city], forecastData, forecastDataDate: new Date() }}
         }
         case GET_WEATHER_CITY: {
             const city = action.payload;
@@ -20,7 +23,7 @@ export const cities = (state = {}, action) => {
         }
         case SET_WEATHER_CITY: {
             const { city, wheather } = action.payload;
-            return {...state, [city]: { ...state[city], wheather:wheather }}
+            return {...state, [city]: { ...state[city], wheather }}
         }
         default:
             return state;
@@ -33,7 +36,7 @@ export const cities = (state = {}, action) => {
 export const getForecastDataFromCities = createSelector((state, city) => state[city] && state[city].forecastData, forecastData => forecastData);
 
 
-// En esta funcion extraemos de la data los cambios de ciuda y wheader y los convertimos a una array
+// En esta funcion extraemos de la data los cambios de ciudad y wheader y los convertimos a una array
 const fromObjToArray = cities => (toPairs(cities).map(([key, value]) => ({ key, name: key, data: value.wheather })));
 
 // Usamos la libreria LODASH, que permite procesar los datos que esten en Array, Object, etc.

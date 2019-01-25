@@ -54,6 +54,11 @@ body{background: #292929;}
 
 .middle{display: inline-block;vertical-align: middle;}
 
+/*PROVICIONAL wheaderlist issue*/
+.sidebar .wraplocation:last-child{
+    display: none;
+}
+
 @media screen and (max-width: 620px){
     .wheadericon strong{display: block;}
 }
