@@ -1,8 +1,15 @@
 // IMPORTACIONES
-import { api_key, url_base_forecast } from '../constanst/api_url';
+import { 
+    api_key, 
+    url_base_forecast,
+    api_key_img, 
+    url_base_url, 
+    url_query } from '../constanst/api_url';
 import transformForecast from '../services/transformForecast';
 // Importamos la funcion para obtener el api con la ciudad.
 import getUrlByCity from '../services/getWeatherCity';
+// Importamos la transformacion del banner.
+import { getBannerImg } from '../services/getBannerImg';
 // Importamos el servicio que transforma los datos
 import transformWeather from '../services/transformWeather';
 
@@ -12,12 +19,47 @@ export const SET_FORECAST_DATA  = 'SET_FORECAST_DATA';
 
 export const GET_WEATHER_CITY   = 'GET_WEATHER_CITY';
 export const SET_WEATHER_CITY   = 'SET_WEATHER_CITY';
+
+// Action to show banner
+export const LOAD_BANNER_CITY   = 'LOAD_BANNER_CITY';
+export const GET_BANNER_CITY    = 'GET_BANNER_CITY';
+
 // Creamos un a funcion que sera el action creator que recibira del dispacher el valor actualizado
 const setCity = payload => ({ type: SET_CITY, payload });
 const setForecastData = payload => ({ type: SET_FORECAST_DATA, payload});
 
 const getWeatherCity = payload => ({ type: GET_WEATHER_CITY, payload});
 const setWeatherCity = payload => ({ type: SET_WEATHER_CITY, payload});
+// Banner
+const loadBannerCity = payload => ({ type: LOAD_BANNER_CITY, payload});
+const getBannerCity  = payload => ({ type: GET_BANNER_CITY, payload});
+
+export const setBannerCity = payload => {
+    // Este accion creator, va hacer la consulta al api de la imagen y va enviar el dispatch
+    return (dispatch, getState) => {
+        const url_api_banner = `${url_base_url}?client_id=${api_key_img}&query=${payload}&${url_query}`;
+        dispatch(loadBannerCity(payload));
+
+        // Prevent Innesesari load on the page
+        const state = getState();
+        const date  = state.cities[payload] && state.cities[payload].forecastDataDate;
+        const now   = new Date();
+
+        if( date && (now - date) < 2 * 60 * 1000) {
+            return;
+        }
+
+        fetch(url_api_banner).then(
+            data => (data.json())
+            ).then(
+            img_data => {
+                const bannerData = getBannerImg(img_data);
+                dispatch(getBannerCity({city: payload, banner: bannerData}));
+
+            }
+        ).catch (err => console.log(err));        
+    }
+}
 
 // Creamos una nueva accion con middewares, para hacer una peticion al API
 export const setSelectedCity = payload =>{

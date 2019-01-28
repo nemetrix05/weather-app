@@ -65,7 +65,7 @@ const mapDispatchProps = dispatch => ({
 // Como la array de ciudades la estaba recibiendo por props, ahora tenemos que sacar ese dato del state
 const mapStateToProps = state => ({ 
     citiesWeather: getWheatherCities(state),
-    city: getCity(state) 
+    city: getCity(state)
 });
 
 

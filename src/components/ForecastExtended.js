@@ -41,7 +41,7 @@ const ForecastExtended = ({city, banner, forecastData}) => (
 
 ForecastExtended.propTypes = {
     city: PropTypes.string.isRequired,
-    banner: PropTypes.string.isRequired,
+    banner: PropTypes.string,
     forecastData: PropTypes.array
 }
 

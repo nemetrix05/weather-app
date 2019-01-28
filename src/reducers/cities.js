@@ -1,4 +1,4 @@
-import { SET_FORECAST_DATA, GET_WEATHER_CITY, SET_WEATHER_CITY } from '../actions';
+import { SET_FORECAST_DATA, GET_WEATHER_CITY, SET_WEATHER_CITY, LOAD_BANNER_CITY, GET_BANNER_CITY } from '../actions';
 /*Instalamos la libreria Reselect, que se encargara de mejorar la presentacion y el proceso de carga de los selectores */
 import { createSelector } from 'reselect';
 import toPairs from 'lodash.topairs';
@@ -25,6 +25,14 @@ export const cities = (state = {}, action) => {
             const { city, wheather } = action.payload;
             return {...state, [city]: { ...state[city], wheather }}
         }
+        case LOAD_BANNER_CITY: {
+            const city = action.payload;
+            return {...state, [city]: { ...state[city], banner: null} }
+        }
+        case GET_BANNER_CITY: {
+            const { city, banner } = action.payload;
+            return { ...state, [city]: { ...state[city], banner}}
+        }
         default:
             return state;
     }
@@ -35,6 +43,8 @@ export const cities = (state = {}, action) => {
 // Recibe como parametros las propiedades del reducer.
 export const getForecastDataFromCities = createSelector((state, city) => state[city] && state[city].forecastData, forecastData => forecastData);
 
+// Recibe los parametros para sacar el banner
+export const getBanner = createSelector((state, city) => state[city] && state[city].banner, banner => banner);
 
 // En esta funcion extraemos de la data los cambios de ciudad y wheader y los convertimos a una array
 const fromObjToArray = cities => (toPairs(cities).map(([key, value]) => ({ key, name: key, data: value.wheather })));
