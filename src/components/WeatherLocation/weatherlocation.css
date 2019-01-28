@@ -11,7 +11,8 @@ h2.Tlocation{
     background: rgb(253,254,254, 0.1);
     box-shadow: inset 0px 0px 3px #fff;
     border-radius: 4px;
-    overflow: hidden;
+    overflow-y: scroll;
+    overflow-x: hidden;
     position: -webkit-sticky;
     position: sticky;
     top: 0;
